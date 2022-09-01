@@ -9,5 +9,5 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserResponseBody {
     @JsonProperty("data")
-    private UserDataResponseBody data;
+    private UserDataResponseBody user;
 }

@@ -119,8 +119,8 @@ public class HomeReqresInLombokTests {
                 .statusCode(200)
                 .extract().as(UserResponseBody.class);
 
-        assertThat(responseBody.getData().getId()).isEqualTo(2);
-        assertThat(responseBody.getData().getFirstName()).isEqualTo("Janet");
+        assertThat(responseBody.getUser().getId()).isEqualTo(2);
+        assertThat(responseBody.getUser().getFirstName()).isEqualTo("Janet");
     }
 
     @Test
@@ -133,7 +133,6 @@ public class HomeReqresInLombokTests {
                 .spec(homeReqresResponseSpec)
                 .statusCode(200)
                 .body("data.findAll{it.email =~/.*?@reqres.in/}.email.flatten()",hasItem("lindsay.ferguson@reqres.in"));
-
     }
 
 }
