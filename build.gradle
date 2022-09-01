@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+    id "io.qameta.allure" version '2.10.0'
+    id "io.freefair.lombok" version "6.5.0.3"
+}
+
+group 'guru.qa'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+def allureVersion = "2.18.1",
+    selenideVersion = "6.6.6",
+    restAssuredVersion = "5.1.1",
+    assertjVersion = "3.23.1",
+    slf4jVersion = "1.7.32",
+    junitVersion = "5.8.2",
+    jacksonDatabindVersion = "2.13.3",
+    guavaVersion = "31.1-jre"
+
+
+allure
+        {
+            report {
+                version.set(allureVersion)
+            }
+            adapter {
+                aspectjWeaver.set(true)
+                frameworks {
+                    junit5 {
+                        adapterVersion.set(allureVersion)
+                    }
+                }
+            }
+        }
+
+dependencies {
+    testImplementation(
+            "io.qameta.allure:allure-selenide:$allureVersion",
+            "com.codeborne:selenide:$selenideVersion",
+            "io.rest-assured:rest-assured:$restAssuredVersion",
+            "io.qameta.allure:allure-rest-assured:$allureVersion",
+            "org.assertj:assertj-core:$assertjVersion",
+            "org.slf4j:slf4j-simple:$slf4jVersion",
+            "org.junit.jupiter:junit-jupiter:$junitVersion",
+            "com.fasterxml.jackson.core:jackson-databind:$jacksonDatabindVersion",
+            "com.google.guava:guava:$guavaVersion"
+    )
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    systemProperties(System.getProperties())
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}

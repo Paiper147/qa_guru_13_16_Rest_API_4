@@ -1,0 +1,39 @@
+def listStr = ['1', '2', '3']
+
+print listStr.find{it.toInteger() > 1}
+=> 2
+print listStr.find{it.toInteger() > 2}
+=> 3
+print listStr.find{it.toInteger() > 3}
+=> null
+
+def list = listStr.find{it.toInteger() > 1}.collect{it.toInteger()}
+=>[2]
+def list = listStr.find{it.toInteger() > 2}.collect{it.toInteger()}
+=>[3]
+def list = listStr.find{it.toInteger() > 3}.collect{it.toInteger()}
+=>[]
+Ошибки => Exception
+
+-------------------
+print listStr.findAll{it.toInteger() > 1}
+=> [2,3]
+print listStr.findAll{it.toInteger() > 2}
+=> [3]
+print listStr.findAll{it.toInteger() > 3}
+=> []
+
+def list = listStr.findAll{it.toInteger() > 1}.collect{it.toInteger()}
+=>[2,3]
+def list = listStr.findAll{it.toInteger() > 2}.collect{it.toInteger()}
+=>[3]
+def list = listStr.finAll{it.toInteger() > 3}.collect{it.toInteger()}
+=>[]
+Ошибки => Попытались вызвать метод у пустой коллекции
+
+-----------------------------
+def listDoubleStr = [[1, 2], [3, 4]]
+print listDoubleStr.flatten()
+=> [1, 2, 3, 4]
+print listDoubleStr.flatten().findAll{it > 2}
+=> [3, 4]
